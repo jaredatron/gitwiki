@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/helper'
 
 class TestPages < Test::Unit::TestCase
 
-  include Helpers
+  include TestHelpers
 
   def setup
     flush_tmp_dir

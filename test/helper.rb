@@ -5,7 +5,7 @@ require 'test/unit'
 
 include Grit
 
-module Helpers
+module TestHelpers
 
   TMP_DIR   = File.join(File.dirname(__FILE__), *%w[tmp])
   TEST_REPO = File.join( TMP_DIR, 'test_repo' )

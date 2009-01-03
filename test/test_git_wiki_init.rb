@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/helper'
 
 class TestGitWikiInit < Test::Unit::TestCase
 
-  include Helpers
+  include TestHelpers
   
   def setup
     Grit.debug = true
