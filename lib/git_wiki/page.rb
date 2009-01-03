@@ -1,24 +1,25 @@
 class GitWiki::Page
   
-  def initialize(repo, name)
-    @repo = repo
+  def initialize(gitwiki, name, opts={})
+    @gitwiki = gitwiki
     @name = name
+    @content = opts[:content]
   end
   
-  attr_reader :repo, :name
+  attr_reader :name
   
   def blob
-    blob ||= find_or_create_blob
-  end
-  
-  def path
-    File.join( repo.path, name )
+    @blob ||= find_or_create_blob
   end
   
   def content
-    blob.data
+    @content
   end
   
+  def content=(new_content)
+    @content = new_content
+  end
+    
   def new?
     blob.id.nil?
   end
@@ -27,13 +28,10 @@ class GitWiki::Page
     !new?
   end
   
-  def content=(new_content)
-    return if new_content == content
-    File.open(path, 'w') { |f| f << new_content }
-    Dir.chdir(repo.path) { repo.add(name) }
-    repo.commit_index( new? ? "Adding #{name}" : "Creating #{name}" )
+  def save
+    @gitwiki.repo.index.add( @name, @content)
   end
-  
+    
   
   private
   
