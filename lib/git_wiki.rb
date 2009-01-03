@@ -1,9 +1,5 @@
-begin
-  require 'mojombo-grit'
-rescue LoadError => e
-  require 'grit'
-end
-  
+$:.unshift File.dirname(__FILE__) # For use/testing when no gem is installed
+require 'grit.rb'
 include Grit
 
 class GitWiki
