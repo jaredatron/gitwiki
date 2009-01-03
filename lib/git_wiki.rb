@@ -57,16 +57,17 @@ class GitWiki
   end
   
   def save_page( page, commit_message=nil )
-    repo.index.add( page.full_name, page.content )
-    repo.index.commit( commit_message || "updaing page '#{page.full_name}' at #{Time.now}" )
+    idx = repo.index
+    idx.add( page.full_name, page.content )
+    idx.commit( commit_message || "updaing page '#{page.full_name}' at #{Time.now}" )
     self
   end
   
 private
   def find_or_create_repo
-    Grit::Repo.new(@path)
-  rescue Grit::NoSuchPathError, Grit::InvalidGitRepositoryError
-    create_bare_repo
+      return Grit::Repo.new(@path)
+    rescue Grit::NoSuchPathError, Grit::InvalidGitRepositoryError
+      return create_bare_repo
   end
   
   def create_bare_repo

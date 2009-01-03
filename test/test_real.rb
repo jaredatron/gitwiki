@@ -19,19 +19,14 @@ class TestReal < Test::Unit::TestCase
   
   def test_init_bare_repo
     # repo = Repo.init_bare( REPO_PATH )
+    # assert_equal Grit::Repo, repo.class
+    puts `git --git-dir=#{REPO_PATH} init`
 
-    
-    # puts `git --git-dir=#{REPO_PATH} init`
-    # puts File.exist?( REPO_PATH )
-    # repo = Grit::Repo.new(REPO_PATH)
-        
-    repo = Grit::Repo.init_bare( REPO_PATH )
-
-    assert_equal Grit::Repo, repo.class    
-    
+    puts File.exist?( REPO_PATH )
+    repo = Grit::Repo.new(REPO_PATH)
     index = repo.index
-    index.add("foo/bar/#{Time.now}.txt", 'hello!')
-    index.add("foo/qux/#{Date.new}.txt", 'world!')
+    index.add('foo/bar/baz.txt', 'hello!')
+    index.add('foo/qux/bam.txt', 'world!')
     puts index.commit('first commit')
 
     puts "checking out repo"
