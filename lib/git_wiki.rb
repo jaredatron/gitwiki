@@ -57,9 +57,10 @@ class GitWiki
   end
   
   def save_page( page, commit_message=nil )
+    msg = commit_message || "updaing page '#{page.full_name}' at #{Time.now}"
     idx = repo.index
     idx.add( page.full_name, page.content )
-    idx.commit( commit_message || "updaing page '#{page.full_name}' at #{Time.now}" )
+    idx.commit( msg, idx.commits.last )
     self
   end
   
