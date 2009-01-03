@@ -2,7 +2,7 @@ $:.unshift File.dirname(__FILE__) # For use/testing when no gem is installed
 require 'grit.rb'
 
 class GitWiki
-  VERSION = '1.0.0'
+  VERSION = '0.0.1'
 
   def initialize(path)
     @path = "#{path}.git"

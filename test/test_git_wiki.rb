@@ -17,5 +17,5 @@ class TestGitWiki < Test::Unit::TestCase
     assert_equal true, File.exist?( mygitwiki.repo.path )
     FileUtils.rm_rf( mygitwiki.repo.path )
   end
-  
+
 end
