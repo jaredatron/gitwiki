@@ -4,14 +4,11 @@ class GitWiki::Page
     @gitwiki = gitwiki
     @name = name
     @content = opts[:content]
+    @ext = opts[:ext]
   end
   
-  attr_reader :name
-  
-  def blob
-    @blob ||= find_or_create_blob
-  end
-  
+  attr_reader :name, :content, :ext
+
   def content
     @content
   end

@@ -4,29 +4,38 @@ require 'git_wiki/page'
 
 class GitWiki
   VERSION = '0.0.1'
-  DEFAULT_PAGE_TYPE = :txt
+  DEFAULT_PAGE_EXT = :txt
   
   attr_reader :repo
+  attr_accessor :default_page_ext
     
   def initialize(path, opts={})
     @path = "#{path}.git"
     @repo = find_or_create_repo
-    @default_page_type = opts[:default_page_type] or GitWiki::DEFAULT_PAGE_TYPE
+    @default_page_ext = opts[:default_page_ext] or GitWiki::DEFAULT_PAGE_TYPE
   end
   
   def [](page_name)
     page = find_or_create_page(page_name)
   end
 
-  def []=(page_name, contents)
+  def []=(*attribs)
+    if attribs.length == 2
+      page_name, contents = attribs
+      ext = nil
+    else
+      page_name, ext, contents = attribs
+    end
+    
     page = find_or_create_page(page_name)
     page.contents = contents
+    page.ext = ext if ext
     page.save
   end
   
   def find_or_create_page(page_name)
     find_page(page_name) || Page.new( self, page_name, \
-                                      :type => @default_page_type )
+                                      :ext => @default_page_ext )
   end
   
   def find_page(page_name)
@@ -45,8 +54,10 @@ class GitWiki
     return nil unless blob 
     
     ext = File.extname(blob.name).to_sym
-    Page.new(self, page_name, {:type => ext, :content => blob.data })
+    Page.new(self, page_name, {:ext => ext, :content => blob.data })
   end
+  
+  def save_page(page_name, )
   
 private
   def find_or_create_repo
