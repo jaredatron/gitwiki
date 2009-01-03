@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'hoe'
-require './lib/gitwiki.rb'
+require './lib/git_wiki.rb'
 
 Hoe.new('gitwiki', GitWiki::VERSION) do |p|
   p.rubyforge_name = 'gitwiki'
