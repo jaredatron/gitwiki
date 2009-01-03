@@ -16,6 +16,7 @@ class GitWiki::Page
   def full_name
     "#{name}.#{ext}"
   end
+  alias :path :full_name
 
   def save( commit_message=nil )
     @gitwiki.save_page( self, commit_message )

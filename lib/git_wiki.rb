@@ -9,7 +9,7 @@ class GitWiki
   attr_accessor :default_page_ext
     
   def initialize(path, opts={})
-    @path = "#{path}.git"
+    @path = path.gsub(/\.git$/,'')+'.git'
     @repo = find_or_create_repo
     @default_page_ext = opts[:default_page_ext] || GitWiki::DEFAULT_PAGE_EXT
   end
