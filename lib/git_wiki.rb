@@ -60,7 +60,7 @@ class GitWiki
     msg = commit_message || "updaing page '#{page.full_name}' at #{Time.now}"
     idx = repo.index
     idx.add( page.full_name, page.content )
-    idx.commit( msg, idx.commits.last )
+    idx.commit( msg, Array(repo.commits.last) )
     self
   end
   

@@ -63,5 +63,18 @@ class TestPages < Test::Unit::TestCase
     File.join(File.dirname(__FILE__), *%w[tmp])
   end
   
+  def test_page_history
+    name = "do/it/twice"
+    name2 = "do/it/thrice"
+    @git_wiki[name]="First"
+    assert_equal 1, @git_wiki[name].history.length, "First commit to first file"
+    @git_wiki[name]="Second"
+    assert_equal 2, @git_wiki[name].history.length, "Second commit to first file"
+    @git_wiki[name2]="first"
+    assert_equal 1, @git_wiki[name2].history.length, "first commit to second file"
+    @git_wiki[name2]="Second"
+    assert_equal 2, @git_wiki[name2].history.length, "2nd commit to second file"
+    assert_equal 4, @git_wiki.history_for("do").length
+  end
 
 end
