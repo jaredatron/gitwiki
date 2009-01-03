@@ -2,19 +2,19 @@ require File.dirname(__FILE__) + '/helper'
 
 class TestReal < Test::Unit::TestCase
 
+  include Helpers
+
   REPO_PATH = File.join(TMP_DIR, *%w[test_create_wiki.git])
   CO_PATH = File.join(TMP_DIR, *%w[test_create_wiki])
 
   def setup
     Grit.debug = true
-    FileUtils.rm_rf( REPO_PATH )
-    FileUtils.rm_rf( CO_PATH )
+    flush_tmp_dir
   end
   
   def teardown
     Grit.debug = false
-    FileUtils.rm_rf( REPO_PATH )
-    FileUtils.rm_rf( CO_PATH )
+    flush_tmp_dir
   end
   
   def test_init_bare_repo
