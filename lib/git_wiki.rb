@@ -20,14 +20,14 @@ class GitWiki
 
   def []=(*attribs)
     if attribs.length == 2
-      page_name, contents = attribs
+      page_name, content = attribs
       ext = nil
     else
-      page_name, ext, contents = attribs
+      page_name, ext, content = attribs
     end
     
     page = find_or_create_page(page_name)
-    page.contents = contents
+    page.content = content
     page.ext = ext if ext
     page.save
   end
