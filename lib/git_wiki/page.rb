@@ -21,4 +21,8 @@ class GitWiki::Page
   def save( commit_message=nil )
     @gitwiki.save_page( self, commit_message )
   end
+  
+  def history
+    @gitwiki.history_for full_name
+  end
 end

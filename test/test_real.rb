@@ -33,4 +33,23 @@ class TestReal < Test::Unit::TestCase
     assert File.exists?( File.join( TEST_REPO, 'foo/qux/bam.txt' ) ) 
   end
   
+  def test_multiple_commits
+    repo_path = TEST_REPO+'.git'
+    # assert_equal "Initialized empty Git repository in #{repo_path}/\n", 
+    `git --git-dir=#{repo_path} init`
+
+    assert File.exist?( repo_path )
+    repo = Grit::Repo.new(repo_path)
+    index = repo.index
+    index.add('foo/bar/baz.txt', 'hello!')
+    index.add('foo/qux/bam.txt', 'world!')
+    parent = index.commit('first commit')
+
+    index.add('foo2/bar2/baz2.txt', 'hello!')
+    index.add('foo2/qux2/bam2.txt', 'world!')
+    puts index.commit('second commit', parent)
+    
+    assert_equal 2, repo.commits.length  
+  end
+  
 end
