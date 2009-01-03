@@ -1,6 +1,5 @@
 class GitWiki
-
-  ROOT = "#{RAILS_ROOT}/db"
+  VERSION = '1.0.0'
 
   def initialize(path)
     @path = "#{path}.git"
