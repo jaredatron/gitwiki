@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/helper'
 
-class TestGitWiki < Test::Unit::TestCase
+class TestReal < Test::Unit::TestCase
 
   REPO_PATH = File.join(TMP_DIR, *%w[test_create_wiki.git])
   CO_PATH = File.join(TMP_DIR, *%w[test_create_wiki])
@@ -20,9 +20,6 @@ class TestGitWiki < Test::Unit::TestCase
   def test_init_bare_repo
     # repo = Repo.init_bare( REPO_PATH )
     # assert_equal Grit::Repo, repo.class
-
-
-
     puts `git --git-dir=#{REPO_PATH} init`
 
     puts File.exist?( REPO_PATH )
@@ -37,7 +34,6 @@ class TestGitWiki < Test::Unit::TestCase
 
     puts "tree:"
     puts `tree #{CO_PATH}`
-    
   end
   
 end

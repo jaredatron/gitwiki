@@ -26,7 +26,7 @@ class TestGitWiki < Test::Unit::TestCase
   end
   
   def test_destroy_page
-    assert
+    assert true
   end
 
 end
