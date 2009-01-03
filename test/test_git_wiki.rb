@@ -6,4 +6,5 @@ class TestGitWiki < Test::Unit::TestCase
   def teardown
     Grit.debug = false
   end
+  
 end

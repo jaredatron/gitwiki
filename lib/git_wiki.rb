@@ -3,7 +3,7 @@ require 'grit.rb'
 include Grit
 
 class GitWiki
-  VERSION = '1.0.0'
+  VERSION = '0.0.1'
 
   def initialize(path)
     @path = "#{path}.git"
