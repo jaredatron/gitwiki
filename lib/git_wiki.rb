@@ -1,3 +1,11 @@
+begin
+  require 'mojombo-grit'
+rescue LoadError => e
+  require 'grit'
+end
+  
+include Grit
+
 class GitWiki
   VERSION = '1.0.0'
 

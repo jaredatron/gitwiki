@@ -4,7 +4,7 @@ require 'rubygems'
 require 'hoe'
 require './lib/gitwiki.rb'
 
-Hoe.new('gitwiki', Gitwiki::VERSION) do |p|
+Hoe.new('gitwiki', GitWiki::VERSION) do |p|
   p.rubyforge_name = 'gitwiki'
   p.developer('Jared Grippe', 'gitwiki@jaredgrippe.com')
   p.extra_deps << ['mojombo-grit']
