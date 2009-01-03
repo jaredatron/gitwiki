@@ -64,11 +64,15 @@ class GitWiki
   
 private
   def find_or_create_repo
-  #   Grit::Repo.new(@path)
-  # rescue Grit::NoSuchPathError, Grit::InvalidGitRepositoryError
-  #   # `git --git-dir=#{@path} init`
-  #   # @repo = Grit::Repo.new(@path)
-    Grit::Repo.init_bare(@path)
+    Grit::Repo.new(@path)
+  rescue Grit::NoSuchPathError, Grit::InvalidGitRepositoryError
+    create_bare_repo
+  end
+  
+  def create_bare_repo
+    repo = Grit::Repo.init_bare(@path)
+    repo.index.commit('inital commit')
+    repo
   end
   
 end

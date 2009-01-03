@@ -2,12 +2,14 @@ require File.dirname(__FILE__) + '/helper'
 
 class TestGitWiki < Test::Unit::TestCase
 
-  REPO_PATH = TMP_DIR + '/test_gitwiki_init'
-  CO_PATH = TMP_DIR + '/test_co_gitwiki_init'
+
+  REPO_PATH = File.join(TMP_DIR, *%w[test_gitwiki_init])
+  CO_PATH =   File.join(TMP_DIR, *%w[test_co_gitwiki_init])
 
   def setup
-    @mygitwiki = GitWiki.new( REPO_PATH )
+    `rm -rf #{TMP_DIR}/*`
     Grit.debug = true
+    @mygitwiki = GitWiki.new( REPO_PATH )
   end
   
   def teardown
@@ -22,7 +24,8 @@ class TestGitWiki < Test::Unit::TestCase
     assert_equal true, File.exist?( @mygitwiki.repo.path )
     
     puts "checking out repo"
-    puts `git clone #{REPO_PATH} #{CO_PATH}`
+    puts "git clone #{@mygitwiki.repo.path} #{CO_PATH}"
+    puts `git clone #{@mygitwiki.repo.path} #{CO_PATH}`
     
     puts "tree:"
     puts `tree #{CO_PATH}`
@@ -30,15 +33,15 @@ class TestGitWiki < Test::Unit::TestCase
   
   end
 
-  def test_add_page
-    page = @mygitwiki['my_first_page']
-    page_content = 'this is my first page'
-    page.content = page_content
-    page.save
-  end
-  
-  def test_destroy_page
-    assert true
-  end
+  # def test_add_page
+  #   page = @mygitwiki['my_first_page']
+  #   page_content = 'this is my first page'
+  #   page.content = page_content
+  #   page.save
+  # end
+  # 
+  # def test_destroy_page
+  #   assert true
+  # end
 
 end
