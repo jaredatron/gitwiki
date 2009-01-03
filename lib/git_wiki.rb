@@ -63,10 +63,14 @@ class GitWiki
     self
   end
   
+  def history_for(path)
+    repo.log 'master', path
+  end
+  
 private
   def find_or_create_repo
       return Grit::Repo.new(@path)
-    rescue Grit::NoSuchPathError, Grit::InvalidGitRepositoryError
+    rescue Grit::NoSuchPathError
       return create_bare_repo
   end
   
