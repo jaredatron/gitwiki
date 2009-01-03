@@ -52,7 +52,7 @@ class GitWiki
            end
     return nil unless blob 
     
-    ext = File.extname(blob.name).to_sym
+    ext = File.extname(blob.name)[1..-1].to_sym
     Page.new(self, page_name, {:ext => ext, :content => blob.data })
   end
   

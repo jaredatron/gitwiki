@@ -8,6 +8,10 @@ class GitWiki::Page
   end
   
   attr_accessor :name, :content, :ext
+  
+  def ext
+    @ext.to_s
+  end
 
   def full_name
     "#{name}.#{ext}"
