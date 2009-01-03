@@ -9,6 +9,10 @@ class GitWiki::Page
   
   attr_reader :name, :content, :ext
 
+  def full_name
+    "#{name}.#{ext}"
+  end
+
   def content
     @content
   end
@@ -25,8 +29,8 @@ class GitWiki::Page
     !new?
   end
   
-  def save
-    @gitwiki.repo.index.add( @name, @content)
+  def save( commit_message=nil )
+    @gitwiki.save_page( self, commit_message )
   end
     
   

@@ -1,6 +1,5 @@
 $:.unshift File.dirname(__FILE__) # For use/testing when no gem is installed
 require 'grit.rb'
-require 'git_wiki/page'
 
 class GitWiki
   VERSION = '0.0.1'
@@ -12,7 +11,7 @@ class GitWiki
   def initialize(path, opts={})
     @path = "#{path}.git"
     @repo = find_or_create_repo
-    @default_page_ext = opts[:default_page_ext] or GitWiki::DEFAULT_PAGE_TYPE
+    @default_page_ext = opts[:default_page_ext] || GitWiki::DEFAULT_PAGE_EXT
   end
   
   def [](page_name)
@@ -57,13 +56,21 @@ class GitWiki
     Page.new(self, page_name, {:ext => ext, :content => blob.data })
   end
   
-  def save_page(page_name, )
+  def save_page( page, commit_message=nil )
+    repo.index.add( page.full_name, page.content )
+    repo.index.commit( commit_message || "updaing page '#{page.full_name}' at #{Time.now}" )
+    self
+  end
   
 private
   def find_or_create_repo
     Grit::Repo.new(@path)
   rescue Grit::NoSuchPathError, Grit::InvalidGitRepositoryError
-    Grit::Repo.init_bare(@path)
+    `git --git-dir=#{@path} init`
+    @repo = Grit::Repo.new(@path)
+    # Grit::Repo.init_bare(@path)
   end
   
 end
+
+require 'git_wiki/page'
