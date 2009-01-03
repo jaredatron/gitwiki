@@ -21,5 +21,10 @@ class TestGitWikiInit < Test::Unit::TestCase
     assert_equal true, File.exist?( @git_wiki.repo.path )
     assert_equal 1, @git_wiki.repo.commits.size
   end
+  
+  def test_repo_for_dot_git_ext
+    GitWiki.new( File.join( TMP_DIR, 'i_have_no_dot_git_ext' ) )
+    assert !!(@git_wiki.repo.path =~ /\.git$/)
+  end
 
 end
